@@ -15,11 +15,11 @@ class CrimeTypeConverters {
         }
     }
     @TypeConverter
-    fun toUUID(uuid: String?): UUID? {
+    fun toUUID(uuid: String): UUID {
         return UUID.fromString(uuid)
     }
     @TypeConverter
-    fun fromUUID(uuid: UUID): String? {
-        return uuid?.toString()
+    fun fromUUID(uuid: UUID): String {
+        return uuid.toString()
     }
 }
