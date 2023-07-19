@@ -13,7 +13,6 @@
         android:layout_marginTop="8dp"
         android:text="@string/crime_id"
         app:layout_constraintBottom_toTopOf="@+id/crime_title"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed" />
@@ -24,8 +23,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="1dp"
         android:text="@string/crime_title"
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/crime_date"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/crime_id" />
 
@@ -35,8 +34,17 @@
         android:layout_height="wrap_content"
         android:text="@string/crime_date"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/crime_title" />
+
+    <ImageView
+        android:id="@+id/crime_solved"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/common_dimen"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/baseline_warning_48" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
