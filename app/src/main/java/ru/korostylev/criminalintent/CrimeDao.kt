@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Query
 import java.util.UUID
 
+//3 этап. Создаем объект доступа к данным.
 @Dao
 interface CrimeDao {
     @Query("SELECT * FROM CrimeEntity")
