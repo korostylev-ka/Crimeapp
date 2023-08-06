@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-class CrimeAdapter(val crimes: List<Crime>): RecyclerView.Adapter<CrimeHolder>() {
+class CrimeAdapter(val crimeEntities: List<Crime>): RecyclerView.Adapter<CrimeHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CrimeHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.list_item_crime, parent, false)
@@ -13,11 +13,11 @@ class CrimeAdapter(val crimes: List<Crime>): RecyclerView.Adapter<CrimeHolder>()
     }
 
     override fun getItemCount(): Int {
-        return crimes.size
+        return crimeEntities.size
     }
 
     override fun onBindViewHolder(holder: CrimeHolder, position: Int) {
-        val crime = crimes[position]
+        val crime = crimeEntities[position]
         holder.bind(crime)
     }
     /*

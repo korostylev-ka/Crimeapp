@@ -1,10 +1,13 @@
 package ru.korostylev.criminalintent
 
-import java.util.Date
-import java.util.UUID
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import java.util.*
 
+//1 этап. определяем "сущность"(классы моделей) аннотацией
+@Entity
 data class Crime(
-    //способ генерирования универсально-уникальных идентификаторов
+    @PrimaryKey
     var id: UUID = UUID.randomUUID(),
     var title: String = "",
     //задает текущую дату

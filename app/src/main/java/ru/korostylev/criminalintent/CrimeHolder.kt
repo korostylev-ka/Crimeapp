@@ -1,14 +1,10 @@
 package ru.korostylev.criminalintent
 
-import android.app.Application
-import android.content.Context
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.coroutines.withContext
-import java.text.DateFormat
 
 class CrimeHolder(view: View): RecyclerView.ViewHolder(view), View.OnClickListener {
     private lateinit var crime: Crime

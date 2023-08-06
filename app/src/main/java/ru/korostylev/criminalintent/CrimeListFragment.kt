@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 private const val TAG = "CrimeListFragment"
 
 class CrimeListFragment: Fragment() {
-    private val crimeListViewModel: CrimeListViewModel by viewModels()
+    private val crimeListViewModel: CrimeListViewModel by activityViewModels()
     private lateinit var crimeRecyclerView: RecyclerView
     private var adapter: CrimeAdapter? = CrimeAdapter(emptyList())
 
@@ -38,12 +38,15 @@ class CrimeListFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        crimeListViewModel.crimeListLiveData.observe(viewLifecycleOwner, Observer {crimes ->
-            crimes?.let {
-                Log.i(TAG, "Got crimes ${crimes.size}")
-                updateUI(crimes)
-            }
-        })
+
+        crimeListViewModel.crimeListLiveData.observe(
+            viewLifecycleOwner,
+            Observer { crimes ->
+                crimes?.let {
+                    Log.i(TAG, "Got crimes ${crimes.size}")
+                    updateUI(crimes)
+                }
+            })
     }
 
     private fun updateUI(crimes: List<Crime>) {
