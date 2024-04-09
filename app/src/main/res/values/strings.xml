@@ -7,4 +7,7 @@
     <string name="crime_title">Crime Title</string>
     <string name="crime_date">Crime Date</string>
     <string name="crime_id">Crime ID</string>
+    <string name="new_crime">New Crime</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

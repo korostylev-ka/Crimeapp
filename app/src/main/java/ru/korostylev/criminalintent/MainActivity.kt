@@ -2,8 +2,10 @@ package ru.korostylev.criminalintent
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import java.util.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), CrimeListFragment.Callbacks {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -20,5 +22,15 @@ class MainActivity : AppCompatActivity() {
                     //закрепить
                 .commit()
         }
+    }
+
+    override fun onCrimeSelected(crimeId: UUID) {
+//        Log.d("UUID", "$crimeId")
+        val fragment = CrimeFragment.newInstance(crimeId)
+//        val fragment = CrimeFragment()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .addToBackStack(null)
+            .commit()
     }
 }

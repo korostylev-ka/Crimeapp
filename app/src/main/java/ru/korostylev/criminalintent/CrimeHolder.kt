@@ -29,7 +29,7 @@ class CrimeHolder(view: View): RecyclerView.ViewHolder(view), View.OnClickListen
     }
 
     override fun onClick(v: View) {
-        Toast.makeText(v.context, "${crime.title} pressed", Toast.LENGTH_SHORT)
-            .show()
+
+
     }
 }
