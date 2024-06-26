@@ -1,5 +1,6 @@
 package ru.korostylev.criminalintent
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -13,6 +14,7 @@ import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import java.text.DateFormat
 import java.util.*
 
 //ключ для конкретного нарушения
@@ -20,6 +22,7 @@ private const val ARG_CRIME_ID = "CRIME_ID"
 private const val DIALOG_DATE = "DialogDate"
 //код целевого фрагмента
 private const val REQUEST_DATE = 0
+private const val DATE_FORMAT = "EEE, MMM, dd"
 //контроллер, взаимодействующий с объектами модели и представления. Его задача - выдача подробной
 //информации о конкретном преступлении и ее обновление при модификации пользователем
 class CrimeFragment: Fragment(), DatePickerFragment.Callbacks {
@@ -28,6 +31,7 @@ class CrimeFragment: Fragment(), DatePickerFragment.Callbacks {
     private lateinit var titleField: EditText
     private lateinit var dateButton: Button
     private lateinit var solvedCheckBox: CheckBox
+    private lateinit var reportButton: Button
     private val crimeDetailViewModel: CrimeDetailViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,6 +53,7 @@ class CrimeFragment: Fragment(), DatePickerFragment.Callbacks {
         titleField = view.findViewById(R.id.crime_title) as EditText
         dateButton = view.findViewById(R.id.crime_date) as Button
         solvedCheckBox = view.findViewById(R.id.crime_solved) as CheckBox
+        reportButton = view.findViewById(R.id.crime_report) as Button
 
 //        dateButton.apply {
 //            text = crime.date.toString()
@@ -66,6 +71,21 @@ class CrimeFragment: Fragment(), DatePickerFragment.Callbacks {
             setOnCheckedChangeListener {_,isChecked ->
                 crime.isSolved = isChecked
 
+            }
+        }
+        reportButton.setOnClickListener {
+//            Создаем неявный интент для отправки отчета
+            Intent(Intent.ACTION_SEND).apply {
+                type = "text/plain"
+                putExtra(Intent.EXTRA_TEXT, getCrimeReport())
+                putExtra(
+                    Intent.EXTRA_SUBJECT,
+                    getString(R.string.crime_report_subject)
+                )
+            }.also {
+//                Создаем список выбора приложений для отправки отчета
+                val chooserIntent = Intent.createChooser(it, getString(R.string.send_report))
+                startActivity(chooserIntent)
             }
         }
         return view
@@ -128,6 +148,23 @@ class CrimeFragment: Fragment(), DatePickerFragment.Callbacks {
         dateButton.text = crime.date.toString()
         solvedCheckBox.isChecked = crime.isSolved
     }
+
+//    Функция, которая создает четыре строки, соединяет их и возвращает полный отчет
+    private fun getCrimeReport(): String {
+        val solvedString = if (crime.isSolved) {
+            getString(R.string.crime_report_solved)
+        } else {
+            getString(R.string.crime_report_unsolved)
+        }
+        val dateString = android.text.format.DateFormat.format(DATE_FORMAT, crime.date).toString()
+        val suspect = if (crime.suspect.isBlank()) {
+            getString(R.string.crime_report_no_suspect)
+        } else {
+            getString(R.string.crime_report_suspect)
+        }
+        return getString(R.string.crime_report, crime.title, dateString, solvedString, suspect)
+    }
+
 
     companion object {
         fun newInstance(crimeId: UUID): CrimeFragment {
